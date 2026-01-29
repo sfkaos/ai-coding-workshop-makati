@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Coding Workshop</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --text: #fafafa;
+      --muted: #71717a;
+      --accent: #22c55e;
+      --accent-dim: rgba(34, 197, 94, 0.2);
+      --border: #27272a;
+    }
+
+    html, body, .reveal-viewport, .reveal {
+      background: #09090b !important;
+    }
+
+    /* Navigation arrows */
+    .reveal .controls {
+      color: #22c55e !important;
+    }
+    
+    .reveal .controls button {
+      color: #22c55e !important;
+      opacity: 0.7;
+    }
+    
+    .reveal .controls button:hover {
+      opacity: 1;
+    }
+
+    /* Progress bar */
+    .reveal .progress {
+      background: #27272a;
+    }
+    
+    .reveal .progress span {
+      background: #22c55e !important;
+    }
+
+    .reveal .slides {
+      background: #09090b;
+    }
+
+    .reveal .slides > section,
+    .reveal .slides > section > section {
+      background: #09090b !important;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px) !important;
+      background-size: 60px 60px !important;
+    }
+
+    /* Typography — Inter for everything, JetBrains Mono for code only */
+    .reveal h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 3.5em;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.3em;
+    }
+
+    .reveal h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2em;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5em;
+    }
+
+    .reveal h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3em;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .reveal p {
+      font-family: 'Inter', sans-serif;
+      color: var(--muted);
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+
+    .reveal .accent {
+      color: var(--accent);
+    }
+
+    .reveal .big-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.2em;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .reveal .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75em;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1em;
+    }
+
+    /* Terminal/code — the ONLY place we use monospace */
+    .reveal .terminal {
+      display: inline-block;
+      background: rgba(39, 39, 42, 0.8);
+      border: 1px solid var(--border);
+      padding: 24px 40px;
+      border-radius: 12px;
+      margin-top: 1.5em;
+      text-align: left;
+    }
+
+    .reveal .terminal code {
+      font-family: 'JetBrains Mono', monospace;
+      color: #a1a1aa;
+      font-size: 1em;
+    }
+
+    .reveal .terminal .cmd { color: var(--accent); }
+    .reveal .terminal .flag { color: #f472b6; }
+    .reveal .terminal .str { color: #fbbf24; }
+    
+    .reveal code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .reveal .card {
+      background: rgba(39, 39, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2em;
+      text-align: left;
+      margin: 1em 0;
+    }
+
+    .reveal .card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4em;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5em;
+    }
+
+    .reveal ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .reveal ul li {
+      color: var(--muted);
+      font-size: 1em;
+      padding: 0.5em 0;
+      padding-left: 1.5em;
+      position: relative;
+    }
+
+    .reveal ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .reveal .two-col {
+      display: flex;
+      gap: 2em;
+      margin-top: 1em;
+    }
+
+    .reveal .two-col > div {
+      flex: 1;
+      text-align: left;
+    }
+
+    .reveal .pill {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--accent);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75em;
+      margin-top: 1.5em;
+    }
+
+    .reveal .big-emoji {
+      font-size: 4em;
+      margin-bottom: 0.3em;
+    }
+
+    .reveal .timeline {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2em;
+      padding: 0 1em;
+    }
+
+    .reveal .timeline-item {
+      text-align: center;
+      flex: 1;
+    }
+
+    .reveal .timeline-item .time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8em;
+      color: var(--accent);
+      margin-bottom: 0.5em;
+    }
+
+    .reveal .timeline-item .title {
+      font-size: 0.9em;
+      color: var(--text);
+    }
+
+    .reveal .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 2em;
+    }
+
+    .reveal .progress-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .reveal .progress-dots .dot.active {
+      background: var(--accent);
+    }
+
+    .reveal .slide-number {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted) !important;
+      font-size: 14px !important;
+    }
+
+    .reveal .flow-arrow {
+      color: var(--accent);
+      font-size: 1.5em;
+      margin: 0 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ==================== TITLE ==================== -->
+      <section>
+        <p class="label">Workshop</p>
+        <h1>AI Coding Workshop</h1>
+        <p style="font-size: 1.3em; color: var(--muted);">Build your first app — <span class="accent">ship it today</span></p>
+        <div class="terminal">
+          <code><span class="cmd">$</span> bolt deploy <span class="flag">--production</span></code>
+        </div>
+      </section>
+
+      <!-- ==================== AGENDA ==================== -->
+      <section>
+        <p class="label">Today</p>
+        <h2>Agenda</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time">1:00</div>
+            <div class="title">Mindset + MLP</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">1:45</div>
+            <div class="title">Live Build</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2:15</div>
+            <div class="title">Break</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2:30</div>
+            <div class="title">Solo Build</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">4:30</div>
+            <div class="title">Show & Tell</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PART 1: MINDSET ==================== -->
+      <section>
+        <div class="progress-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <p class="label">Part 1 · 45 min</p>
+        <h1>Mindset + MLP</h1>
+      </section>
+
+      <section>
+        <p class="big-emoji">🏗️</p>
+        <h2>You are the <span class="accent">Architect</span></h2>
+        <p style="font-size: 1.4em; margin-top: 0.5em;">AI is the builder</p>
+      </section>
+
+      <section>
+        <p class="label">Then vs Now</p>
+        <div class="two-col">
+          <div class="card">
+            <h3>The Old Way</h3>
+            <p style="color: var(--muted); font-size: 0.9em;">
+              Idea → Learn to code → Build for months → Maybe launch
+            </p>
+          </div>
+          <div class="card" style="border-color: var(--accent);">
+            <h3><span class="accent">The New Way</span></h3>
+            <p style="color: var(--muted); font-size: 0.9em;">
+              Idea → Describe it → AI builds → Launch today
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Live Demo</p>
+        <h2>What's possible now</h2>
+        <p>An app built in 20 minutes</p>
+        <p style="margin-top: 2em; font-size: 1.2em;">
+          <span class="accent">No code written by hand.</span><br>
+          Just clear thinking + clear communication.
+        </p>
+      </section>
+
+      <section>
+        <p class="label">The Skill</p>
+        <p class="big-text">
+          Knowing <span class="accent">what</span> to build<br>
+          and <span class="accent">how</span> to describe it
+        </p>
+      </section>
+
+      <!-- ==================== MLP SECTION ==================== -->
+      <section>
+        <p class="label">Framework</p>
+        <h1>Minimum <span class="accent">Lovable</span> Product</h1>
+        <p>Not just minimum. Lovable.</p>
+      </section>
+
+      <section>
+        <p class="label">MVP vs MLP</p>
+        <div class="two-col">
+          <div class="card">
+            <h3>MVP</h3>
+            <p style="color: var(--muted); font-size: 1.1em;">"Does it work?"</p>
+            <p style="color: #52525b; font-size: 0.85em;">Bare minimum to function</p>
+          </div>
+          <div class="card" style="border-color: var(--accent);">
+            <h3><span class="accent">MLP</span></h3>
+            <p style="color: var(--muted); font-size: 1.1em;">"Do people love it?"</p>
+            <p style="color: #52525b; font-size: 0.85em;">Minimum to make someone care</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">The Question</p>
+        <p class="big-text">
+          What's the <span class="accent">ONE thing</span><br>
+          that makes your app lovable?
+        </p>
+      </section>
+
+      <section>
+        <p class="label">Template</p>
+        <h2>Define Your App</h2>
+        <div class="card" style="font-size: 1.1em; line-height: 2.2;">
+          <code style="color: var(--muted);">
+            <span class="accent">[App name]</span> helps<br>
+            <span class="accent">[specific person]</span> do<br>
+            <span class="accent">[one thing]</span> so they can<br>
+            <span class="accent">[benefit]</span>
+          </code>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Example</p>
+        <div class="card" style="font-size: 1.1em; line-height: 2;">
+          <code style="color: var(--muted);">
+            <span class="accent">SplitFair</span> helps<br>
+            <span class="accent">restaurant servers</span> do<br>
+            <span class="accent">split tips by hours worked</span> so they can<br>
+            <span class="accent">avoid arguments and get paid fairly</span>
+          </code>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Your Backlog</p>
+        <h2>Feature Planning</h2>
+        <ul style="max-width: 500px; margin: 1em auto;">
+          <li><strong style="color: var(--text);">1 lovable feature</strong> — the magic</li>
+          <li>5-9 supporting features — the backlog</li>
+        </ul>
+        <p style="margin-top: 2em;">
+          Build the lovable feature first.<br>
+          Everything else is a bonus.
+        </p>
+      </section>
+
+      <!-- ==================== PLANNING EXERCISE ==================== -->
+      <section>
+        <p class="big-emoji">✏️</p>
+        <p class="label">Exercise · 15 min</p>
+        <h2>Planning Time</h2>
+        <p>No screens. Pen and paper.</p>
+      </section>
+
+      <section>
+        <p class="label">Write This Down</p>
+        <div class="card" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em; line-height: 2.2;">
+          <code style="color: var(--muted);">
+            <span class="accent">app:</span> _______________<br>
+            <span class="accent">for:</span> _______________<br>
+            <span class="accent">lovable_feature:</span> _______________<br>
+            <br>
+            <span class="accent">backlog:</span><br>
+            &nbsp;&nbsp;- _______________<br>
+            &nbsp;&nbsp;- _______________<br>
+            &nbsp;&nbsp;- _______________<br>
+            &nbsp;&nbsp;- _______________<br>
+            &nbsp;&nbsp;- _______________<br>
+            &nbsp;&nbsp;- _______________
+          </code>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Stuck?</p>
+        <h2>Need Inspiration?</h2>
+        <ul style="max-width: 500px; margin: 1em auto;">
+          <li>A problem YOU have</li>
+          <li>Something annoying you do manually</li>
+          <li>A tool you wish existed</li>
+          <li>Something to impress a friend or boss</li>
+        </ul>
+      </section>
+
+      <!-- ==================== TOOL SETUP ==================== -->
+      <section>
+        <p class="label">Setup</p>
+        <h2>Your Tools</h2>
+        <div class="two-col" style="margin-top: 1.5em;">
+          <div class="card">
+            <h3>ChatGPT</h3>
+            <p style="color: var(--muted); font-size: 0.9em;">For planning & prompts</p>
+            <p style="color: #52525b; font-size: 0.8em;">chat.openai.com</p>
+          </div>
+          <div class="card" style="border-color: var(--accent);">
+            <h3><span class="accent">Bolt.new</span></h3>
+            <p style="color: var(--muted); font-size: 0.9em;">For building & deploying</p>
+            <p style="color: #52525b; font-size: 0.8em;">bolt.new</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">The Flow</p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; margin-top: 2em; flex-wrap: wrap;">
+          <div style="text-align: center; padding: 1em;">
+            <div style="font-size: 2.5em; margin-bottom: 0.2em;">📝</div>
+            <div style="color: #fafafa; font-size: 1.1em; font-weight: 500;">Plan</div>
+          </div>
+          <div style="color: #22c55e; font-size: 2em;">→</div>
+          <div style="text-align: center; padding: 1em;">
+            <div style="font-size: 2.5em; margin-bottom: 0.2em;">💬</div>
+            <div style="color: #fafafa; font-size: 1.1em; font-weight: 500;">Refine</div>
+          </div>
+          <div style="color: #22c55e; font-size: 2em;">→</div>
+          <div style="text-align: center; padding: 1em;">
+            <div style="font-size: 2.5em; margin-bottom: 0.2em;">🔨</div>
+            <div style="color: #fafafa; font-size: 1.1em; font-weight: 500;">Build</div>
+          </div>
+          <div style="color: #22c55e; font-size: 2em;">→</div>
+          <div style="text-align: center; padding: 1em;">
+            <div style="font-size: 2.5em; margin-bottom: 0.2em;">🚀</div>
+            <div style="color: #22c55e; font-size: 1.1em; font-weight: 500;">Deploy</div>
+          </div>
+        </div>
+        <div style="margin-top: 2em;">
+          <span style="color: #22c55e; font-size: 2em;">↻</span>
+          <p style="color: #71717a; font-size: 1em; margin-top: 0.5em;">Ship → Learn → Repeat</p>
+        </div>
+      </section>
+
+      <!-- ==================== PART 2: CROWD-SOURCED BUILD ==================== -->
+      <section>
+        <div class="progress-dots">
+          <div class="dot"></div>
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <p class="label">Part 2 · 30 min</p>
+        <h1>Live Build</h1>
+        <p>Crowd-sourced</p>
+      </section>
+
+      <section>
+        <p class="label">Interactive</p>
+        <h2>Let's Build Together</h2>
+        <ul style="max-width: 500px; margin: 1em auto;">
+          <li>You decide what we build</li>
+          <li>You help write the prompts</li>
+          <li>I drive</li>
+        </ul>
+      </section>
+
+      <section>
+        <p class="big-emoji">🤔</p>
+        <h2>What should we build?</h2>
+        <div class="pill">Shout it out!</div>
+      </section>
+
+      <section>
+        <p class="label">Demo</p>
+        <div class="terminal" style="font-size: 1.2em;">
+          <code>
+            <span class="cmd">$</span> ChatGPT → plan<br>
+            <span class="cmd">$</span> Bolt → build<br>
+            <span class="cmd">$</span> Deploy → <span class="accent">live</span>
+          </code>
+        </div>
+      </section>
+
+      <!-- ==================== BREAK ==================== -->
+      <section>
+        <p class="big-emoji">☕</p>
+        <p class="label">15 min</p>
+        <h1>Break</h1>
+        <p>Finalize your app idea if you haven't!</p>
+      </section>
+
+      <!-- ==================== PART 3: SOLO BUILD ==================== -->
+      <section>
+        <div class="progress-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot active"></div>
+          <div class="dot"></div>
+        </div>
+        <p class="label">Part 3 · 120 min</p>
+        <h1>Solo Build</h1>
+      </section>
+
+      <section>
+        <p class="label">Sprint 1 · 15 min</p>
+        <h2>First Prompt</h2>
+        <p class="big-text" style="font-size: 1.8em;">
+          Core + lovable feature<br>
+          <span class="accent">on screen</span>
+        </p>
+      </section>
+
+      <section>
+        <p class="label">Sprint 2 · 35 min</p>
+        <h2>Add Features</h2>
+        <p class="big-text" style="font-size: 1.8em;">
+          Pick <span class="accent">2-3 features</span><br>
+          from your backlog
+        </p>
+      </section>
+
+      <section>
+        <p class="label">Mid-point · 15 min</p>
+        <h2>Progress Check</h2>
+        <p>2-3 volunteers share what they've built so far</p>
+      </section>
+
+      <section>
+        <p class="label">Sprint 3 · 35 min</p>
+        <h2>Polish + Deploy</h2>
+        <div class="terminal" style="margin-top: 1em;">
+          <code><span class="cmd">$</span> bolt deploy <span class="flag">--production</span></code>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Remember</p>
+        <h2>The Rules</h2>
+        <ul style="max-width: 500px; margin: 1em auto;">
+          <li>Plan in ChatGPT <span style="color: #52525b;">(free)</span></li>
+          <li>Build in Bolt <span style="color: #52525b;">(save tokens)</span></li>
+          <li>One feature at a time</li>
+          <li>Stuck? <span class="accent">Raise your hand</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <p class="big-emoji">🚀</p>
+        <h1>Go Build!</h1>
+        <div class="pill">Timer starts now</div>
+      </section>
+
+      <!-- ==================== PART 4: SHOW & TELL ==================== -->
+      <section>
+        <div class="progress-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot active"></div>
+        </div>
+        <p class="label">Part 4 · 30 min</p>
+        <h1>Show & Tell</h1>
+      </section>
+
+      <section>
+        <p class="label">Share</p>
+        <h2>Who wants to demo?</h2>
+        <ul style="max-width: 500px; margin: 1em auto;">
+          <li>What does it do?</li>
+          <li>What's the lovable feature?</li>
+          <li>What surprised you?</li>
+        </ul>
+      </section>
+
+      <!-- ==================== WRAP UP ==================== -->
+      <section>
+        <p class="label">What's Next</p>
+        <h2>Keep Building</h2>
+        <ul style="max-width: 500px; margin: 1em auto;">
+          <li>Share your app with someone today</li>
+          <li>Get feedback → iterate</li>
+          <li>Explore: Cursor, Replit, Claude</li>
+          <li><span class="accent">Keep shipping</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <p class="big-emoji">🙌</p>
+        <h1>Thank You!</h1>
+        <p style="font-size: 1.3em;">You built an app today.</p>
+        <div class="terminal" style="margin-top: 2em;">
+          <code><span class="cmd">$</span> echo <span class="str">"You did it!"</span></code>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      controls: true,
+      progress: true
+    });
+  </script>
+</body>
+</html>
