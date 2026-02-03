@@ -356,6 +356,57 @@
         </p>
       </section>
 
+      <!-- ==================== PROMPTING ==================== -->
+      <section>
+        <p class="label">Prompting</p>
+        <h2>How to Talk to AI</h2>
+        <ul style="max-width: 650px; margin: 1em auto;">
+          <li><strong style="color: var(--text);">Be clear and specific</strong> — avoid ambiguity, be precise about what you want</li>
+          <li><strong style="color: var(--text);">Provide context</strong> — who is this for? what's the goal?</li>
+          <li><strong style="color: var(--text);">Break it down</strong> — complex tasks → smaller, focused prompts</li>
+          <li><strong style="color: var(--text);">Work iteratively</strong> — refine based on output, treat it as a conversation</li>
+          <li><strong style="color: var(--text);">Show examples</strong> — "like this, not like that" helps a lot</li>
+        </ul>
+        <p style="font-size: 0.7em; color: #52525b; margin-top: 2em;">
+          Source: <a href="https://platform.openai.com/docs/guides/prompt-engineering" style="color: #52525b;">OpenAI Prompt Engineering Guide</a>
+        </p>
+      </section>
+
+      <section>
+        <p class="label">Example: Before</p>
+        <h2 style="color: #ef4444;">❌ Without Best Practices</h2>
+        <div class="card" style="border-color: #ef4444; max-width: 700px; margin: 1em auto;">
+          <p style="color: var(--muted); font-size: 1.1em; font-style: italic; line-height: 1.6;">
+            "Build me a fitness app"
+          </p>
+        </div>
+        <ul style="max-width: 550px; margin: 1.5em auto; font-size: 0.9em;">
+          <li style="color: #ef4444;">No target user specified</li>
+          <li style="color: #ef4444;">No specific features</li>
+          <li style="color: #ef4444;">No context or goal</li>
+          <li style="color: #ef4444;">AI has to guess everything</li>
+        </ul>
+      </section>
+
+      <section>
+        <p class="label">Example: After</p>
+        <h2><span class="accent">✓ With Best Practices</span></h2>
+        <div class="card" style="border-color: var(--accent); max-width: 750px; margin: 1em auto;">
+          <p style="color: var(--muted); font-size: 0.95em; line-height: 1.8;">
+            "Build a <span class="accent">workout tracker for busy professionals</span> who only have 15-20 minutes to exercise.
+          </p>
+          <p style="color: var(--muted); font-size: 0.95em; line-height: 1.8; margin-top: 0.5em;">
+            <span class="accent">Main feature:</span> Quick-start workouts — tap once and a timer-based routine begins immediately.
+          </p>
+          <p style="color: var(--muted); font-size: 0.95em; line-height: 1.8; margin-top: 0.5em;">
+            Show a weekly calendar view of completed workouts. Use a <span class="accent">dark theme</span> with bold, easy-to-read fonts."
+          </p>
+        </div>
+        <p style="font-size: 0.75em; color: #52525b; margin-top: 1em;">
+          ✓ Audience · ✓ Context · ✓ Core feature · ✓ Layout · ✓ Style
+        </p>
+      </section>
+
       <!-- ==================== MLP SECTION ==================== -->
       <section>
         <p class="label">Framework</p>
@@ -375,6 +426,34 @@
             <h3><span class="accent">MLP</span></h3>
             <p style="color: var(--muted); font-size: 1.1em;">"Do people love it?"</p>
             <p style="color: #52525b; font-size: 0.85em;">Minimum to make someone care</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Example: Tip Calculator</p>
+        <div class="two-col">
+          <div class="card">
+            <h3 style="color: #71717a;">MVP</h3>
+            <p style="color: var(--muted); font-size: 0.85em; font-family: 'JetBrains Mono', monospace; line-height: 1.8;">
+              <span style="color: #52525b;">Bill:</span> $100<br>
+              <span style="color: #52525b;">Tip:</span> 20%<br>
+              <span style="color: #52525b;">Total:</span> $120<br>
+              <span style="color: #52525b;">Split 4 ways:</span> $30 each
+            </p>
+            <p style="color: #52525b; font-size: 0.75em; margin-top: 1em;">✓ Works. Does math. Done.</p>
+          </div>
+          <div class="card" style="border-color: var(--accent);">
+            <h3><span class="accent">MLP</span></h3>
+            <p style="color: var(--muted); font-size: 0.85em; font-family: 'JetBrains Mono', monospace; line-height: 1.8;">
+              <span style="color: #52525b;">Bill:</span> $100<br>
+              <span style="color: #52525b;">Tip:</span> 20%<br>
+              <span style="color: #52525b;">Total:</span> $120<br>
+              <span style="color: var(--accent);">+ "Who had what?"</span><br>
+              <span style="color: var(--accent);">+ Fair split by order</span><br>
+              <span style="color: var(--accent);">+ Send totals via text</span>
+            </p>
+            <p style="color: #52525b; font-size: 0.75em; margin-top: 1em;">✓ Solves the <em>real</em> problem: fairness + awkwardness</p>
           </div>
         </div>
       </section>
